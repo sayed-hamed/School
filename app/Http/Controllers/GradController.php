@@ -24,6 +24,11 @@ class GradController extends Controller
 
     public function store(GradRequest $request)
     {
+        if (Grad::where('name->ar',$request->name)->orWhere('name->en',$request->name_en)->exists()){
+            return redirect()->back()->withErrors(trans('site.exists'));
+        }
+
+
         try {
             $validated = $request->validated();
 

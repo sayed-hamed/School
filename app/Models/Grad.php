@@ -12,4 +12,8 @@ class Grad extends Model
 
     public $translatable = ['name','notes'];
     protected $fillable=['name','notes'];
+
+    public function classroom(){
+        return $this->hasMany('App\Models\Classroom');
+    }
 }

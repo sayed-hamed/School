@@ -41,7 +41,12 @@ Route::group(
 
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
+    //=============Grad========//
     Route::resource('grad','GradController');
+
+    //============Classroom=====//
+
+    Route::resource('classroom','ClassController');
 
 });
 

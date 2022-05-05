@@ -23,6 +23,18 @@ return [
     'are you sure'=>'Are You Sure ?',
     'Delted SuccessFully!'=>'Data Delted SuccessFully!',
     'Delete Grades'=>'Delete Grades',
+    'exists'=>'This field already exist!!',
+    'classrooms'=>'Classrooms',
+    'list_classrooms'=>'List of Classrooms',
+    'Classroom In Arabic'=>'Classroom In Arabic',
+    'Classroom In English'=>'Classroom In English',
+    'Grad Name'=>'Grad Name',
+    'add_row'=>'add_row',
+    'class_name'=>'Class Name',
+    'Add Class'=>'Add Class',
+    'update Class'=>'Update Class',
+    'School System'=>'School Management System',
+
 
 
 
