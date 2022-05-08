@@ -17,4 +17,8 @@ class Classroom extends Model
     public function Grads(){
         return $this->belongsTo('App\Models\Grad','Grid_id');
     }
+
+    public function sections(){
+        return $this->hasMany('App\Models\Section');
+    }
 }

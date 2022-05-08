@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GradRequest;
+use App\Models\Classroom;
 use App\Models\Grad;
 use Illuminate\Http\Request;
 
@@ -84,11 +85,21 @@ class GradController extends Controller
 
     public function destroy(Request $request)
     {
-        $grad=Grad::findOrFail($request->id);
-        $grad->delete();
+        $class=Classroom::where('Grid_id',$request->id)->pluck('Grid_id');
 
-        toastr()->error(trans('site.Delted SuccessFully!'));
-        return redirect()->route('grad.index');
+        if ($class->count()==0){
+
+            $grad=Grad::findOrFail($request->id);
+            $grad->delete();
+
+            toastr()->error(trans('site.Delted SuccessFully!'));
+            return redirect()->route('grad.index');
+
+        }
+       else{
+           toastr()->error(trans('site.Delted1 SuccessFully!'));
+           return redirect()->route('grad.index');
+       }
 
     }
 }

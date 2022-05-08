@@ -34,6 +34,22 @@ return [
     'Add Class'=>'اضافة صف',
     'update Class'=>'تحديث الصف',
     'School System'=>'برنامج ادارة المدارس',
+    'Delted1 SuccessFully!'=>'لا يمكننا حذف هذا الحقل يجب حذف ما يحتوية اولا',
+    'Search_By_Grade'=>'البحث',
+    'delete_checkbox'=>'حذف الصفوف المختارة',
+    'Delete classes'=>'حذف الصفوف المحتارة',
+    'add_section'=>'اضافة قسم',
+    'Section_name_ar'=>'اسم القسم بالعربية',
+    'Section_name_en'=>'اسم القسم بالانجليزية',
+    'Name_Grade'=>'اسم المرحلة',
+    'Select_Grade'=>'اختر المرحلة',
+    'Name_Class'=>'اسم الصف',
+    'Status'=>'الحالة',
+    'Name_Section'=>'اسم القسم',
+    'Sections'=>'الاقسام',
+    'Status_Section_AC'=>'نشط',
+    'Status_Section_No'=>'غير نشط',
+    'delete_Section'=>'حذف القسم',
 
 
 

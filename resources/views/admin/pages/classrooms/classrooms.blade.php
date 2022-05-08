@@ -35,11 +35,20 @@
                     <div class="table-responsive">
                         <table id="datatable" class="table table-striped table-bordered p-0">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#exampleModalScrollable">
+                            <button type="button" class="button x-small" style="margin: 10px" data-toggle="modal" data-target="#exampleModalScrollable">
                                 {{trans('site.Add Class')}}
                             </button>
+
+                            <button type="button" class="button x-small" id="btn_delete_all">
+                                {{ trans('site.delete_checkbox') }}
+                            </button>
+
+
+
+
                             <thead>
                             <tr>
+                                <th><input name="select_all" id="example-select-all" type="checkbox" onclick="CheckAll('box1', this)" /></th>
                                 <th>#</th>
                                 <th>{{trans('site.class_name')}}</th>
                                 <th>{{trans('site.Grad Name')}}</th>
@@ -48,9 +57,22 @@
                             </tr>
                             </thead>
                             <tbody>
+
+
+                            @if (isset($details))
+
+                                <?php $List_Classes = $details; ?>
+                            @else
+
+                                <?php $List_Classes = $classrooms; ?>
+                            @endif
+
+
+
                             <?php $i=0; ?>
                             @foreach($classrooms as $class)
                                 <tr>
+                                    <td><input type="checkbox"  value="{{ $class->id }}" class="box1" ></td>
                                     <td><?php echo ++$i ?></td>
                                     <td>{{$class->class_name}}</td>
                                     <td>{{$class->Grads->name}}</td>
@@ -246,9 +268,67 @@
     </div>
 
 
+
+
+
+
+
+
+
+    <!-- حذف مجموعة صفوف -->
+    <div class="modal fade" id="delete_all" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
+                        {{ trans('site.Delete classes') }}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="{{ route('delete_all') }}" method="POST">
+                    {{ csrf_field() }}
+                    <div class="modal-body">
+                        {{trans('site.are you sure')}}
+                        <input class="text" type="hidden" id="delete_all_id" name="delete_all_id" value=''>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                                data-dismiss="modal">{{ trans('site.Close') }}</button>
+                        <button type="submit" class="btn btn-danger">{{ trans('site.Save') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
 @endsection
 @section('js')
 
     @toastr_js
     @toastr_render
+
+
+    <script type="text/javascript">
+        $(function() {
+            $("#btn_delete_all").click(function() {
+                var selected = new Array();
+                $("#datatable input[type=checkbox]:checked").each(function() {
+                    selected.push(this.value);
+                });
+                if (selected.length > 0) {
+                    $('#delete_all').modal('show')
+                    $('input[id="delete_all_id"]').val(selected);
+                }
+            });
+        });
+    </script>
+
 @endsection

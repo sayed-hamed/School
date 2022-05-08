@@ -122,4 +122,23 @@ class ClassController extends Controller
         toastr()->error(trans('site.Delted SuccessFully!'));
         return redirect()->route('classroom.index');
     }
+
+
+    public function delete_all(Request $request)
+    {
+        $delete_all_id = explode(",", $request->delete_all_id);
+
+        Classroom::whereIn('id', $delete_all_id)->Delete();
+        toastr()->error(trans('messages.Delted SuccessFully!'));
+        return redirect()->route('classroom.index');
+    }
+
+
+    public function Filter_Classes(Request $request)
+    {
+        $Grades = Grad::all();
+        $Search = Classroom::select('*')->where('Grid_id','=',$request->Grade_id)->get();
+        return view('admin.pages.classrooms.classrooms',compact('Grades'))->withDetails($Search);
+
+    }
 }

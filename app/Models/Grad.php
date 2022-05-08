@@ -16,4 +16,8 @@ class Grad extends Model
     public function classroom(){
         return $this->hasMany('App\Models\Classroom');
     }
+
+    public function sections(){
+        return $this->hasMany('App\Models\Section','Grid_id');
+    }
 }
