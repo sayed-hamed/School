@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Classroom;
 use App\Models\Grad;
 use App\models\Section;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class SectionController extends Controller
@@ -13,9 +14,10 @@ class SectionController extends Controller
     public function index()
     {
         $grads=Grad::with('sections')->get();
+        $teachers=Teacher::all();
 
         $list_grads=Grad::all();
-        return view('admin.pages.sections.sections',compact('grads','list_grads'));
+        return view('admin.pages.sections.sections',compact('grads','list_grads','teachers'));
     }
 
 
@@ -36,12 +38,16 @@ class SectionController extends Controller
 
 
 
-        Section::create([
+        $section=Section::create([
             'section_name'=>['en'=>$request->Name_Section_En,'ar'=>$request->Name_Section_Ar],
             'Grid_id'=>$request->Grade_id,
             'Class_id'=>$request->Class_id,
             'Status'=>1,
         ]);
+
+        $section->teachers()->attach($request->teacher_id);
+
+
         toastr()->success(trans('site.Added successfully!'));
         return redirect()->route('section.index');
 
@@ -76,6 +82,13 @@ class SectionController extends Controller
         }else{
             $sections->Status=2;
         }
+
+        if (isset($request->teacher_id)) {
+            $sections->teachers()->sync($request->teacher_id);
+        } else {
+            $sections->teachers()->sync(array());
+        }
+
         $sections->update([
             'section_name'=>['en'=>$request->Name_Section_En,'ar'=>$request->Name_Section_Ar],
             'Grid_id'=>$request->Grade_id,

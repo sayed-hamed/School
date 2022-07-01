@@ -22,6 +22,9 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/dashboard';
+    public const STUDENT = '/student/dashboard';
+    public const TEACHER = '/teacher/dashboard';
+    public const PARENT = '/dashboard';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -45,6 +48,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
+        $this->mapstudentRoutes();
+        $this->mapteacherRoutes();
 
         //
     }
@@ -61,6 +66,20 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
+    }
+
+    protected function mapstudentRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/student.php'));
+    }
+
+    protected function mapteacherRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/teacher.php'));
     }
 
     /**

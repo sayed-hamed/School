@@ -557,7 +557,14 @@ pre code {
   padding-left: 15px;
   padding-right: 15px;
   margin-left: auto;
-  margin-right: auto; }
+  margin-right: auto;
+
+    font-family: 'Cairo', sans-serif;
+    font-weight: bold;
+    font-size-adjust: none;
+}
+
+
 
 .row {
   display: -webkit-box;
@@ -651,7 +658,11 @@ pre code {
   width: 100%;
   min-height: 1px;
   padding-left: 15px;
-  padding-right: 15px; }
+  padding-right: 15px;
+
+}
+
+
 
 .col {
   -ms-flex-preferred-size: 0;

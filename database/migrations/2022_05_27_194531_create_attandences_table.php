@@ -1,0 +1,43 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateAttandencesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('attandences', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('student_id')->unsigned();
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->bigInteger('teacher_id')->unsigned();
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
+            $table->bigInteger('Grade_id')->unsigned();
+            $table->foreign('Grade_id')->references('id')->on('grads')->onDelete('cascade');
+            $table->bigInteger('Classroom_id')->unsigned();
+            $table->foreign('Classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
+            $table->bigInteger('section_id')->unsigned();
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
+            $table->date('attandence_date');
+            $table->boolean('attandence_status');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('attandences');
+    }
+}

@@ -26,28 +26,29 @@
             </ul>
             <!-- top bar right -->
             <ul class="nav navbar-nav ml-auto">
+
+                <div class="btn-group mb-1">
+                    <button type="button" class="btn btn-light btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @if (App::getLocale() == 'ar')
+                            {{ LaravelLocalization::getCurrentLocaleName() }}
+                            <img src="{{ URL::asset('assets/images/flags/EG.png') }}" alt="">
+                        @else
+                            {{ LaravelLocalization::getCurrentLocaleName() }}
+                            <img src="{{ URL::asset('assets/images/flags/US.png') }}" alt="">
+                        @endif
+                    </button>
+                    <div class="dropdown-menu">
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                {{ $properties['native'] }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
                 <li class="nav-item fullscreen">
                     <a id="btnFullscreen" href="#" class="nav-link"><i class="ti-fullscreen"></i></a>
                 </li>
-                <li class="nav-item dropdown ">
-                    <a class="nav-link top-nav" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                        aria-expanded="false">
-                        <i class="ti-world"></i>
-                        <span class="badge badge-danger notification-status"> </span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-big dropdown-notifications">
 
-                        <ul>
-                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                <li>
-                                    <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                        {{ $properties['native'] }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </li>
                 <li class="nav-item dropdown ">
                     <a class="nav-link top-nav" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                        aria-expanded="false">
@@ -108,8 +109,8 @@
                         <div class="dropdown-header">
                             <div class="media">
                                 <div class="media-body">
-                                    <h5 class="mt-0 mb-0">Michael Bean</h5>
-                                    <span>michael-bean@mail.com</span>
+                                    <h5 class="mt-0 mb-0"></h5>
+                                    <span></span>
                                 </div>
                             </div>
                         </div>
@@ -121,7 +122,23 @@
                                 class="badge badge-info">6</span> </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#"><i class="text-info ti-settings"></i>Settings</a>
-                        <a class="dropdown-item" href="#"><i class="text-danger ti-unlock"></i>Logout</a>
+                        <a class="dropdown-item"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"></a>
+                            @if(auth('student')->check())
+                                <form method="get" action="{{route('logout','student')}}">
+
+                                    @elseif(auth('teacher')->check())
+                                        <form method="get" action="{{route('logout','teacher')}}">
+                                            @elseif(auth('parent')->check())
+                                                <form method="get" action="{{route('logout','parent')}}">
+                                                    @else
+                                                        <form method="get" action="{{route('logout','web')}}">
+                                                            @endif
+                                                            @csrf
+                                                           <a class="dropdown-item" href="#" onclick="event.preventDefault();this.closest('form').submit();"><i class="text-danger ti-unlock"></i>تسجيل الخروج</a>
+
+
+                                                        </form>
+
                     </div>
                 </li>
             </ul>
